@@ -1,36 +1,12 @@
 <template>
 <div class="ds-expand ds-calendar-app">
 
-  <v-navigation-drawer fixed app
-    v-model="drawer"
-    :clipped="$vuetify.breakpoint.lgAndUp">
-
-    <slot name="drawerTop"></slot>
-
-    <slot name="drawerPicker" :calendar="calendar" :picked="rebuild">
-      <div class="pa-3" v-if="calendar">
-        <ds-day-picker :span="calendar.span" @picked="rebuild"></ds-day-picker>
-      </div>
-    </slot>
-
-    <slot name="drawerBottom"></slot>
-
-  </v-navigation-drawer>
-
   <v-toolbar app flat fixed
     class="ds-app-calendar-toolbar"
     color="white"
     :clipped-left="$vuetify.breakpoint.lgAndUp">
 
-    <v-toolbar-title class="ml-0" :style="toolbarStyle">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <span class="hidden-sm-and-down">
-
-        <slot name="title" :calendar="calendar"></slot>
-
-      </span>
-    </v-toolbar-title>
-
+    
     <slot name="today" v-bind="{setToday, todayDate, calendar}">
 
       <v-tooltip bottom>
@@ -49,6 +25,8 @@
 
     </slot>
 
+    <v-spacer></v-spacer>
+    
     <slot name="prev" v-bind="{prev, prevLabel, calendar}">
 
       <v-tooltip bottom>
@@ -61,7 +39,13 @@
       </v-tooltip>
 
     </slot>
+    <slot name="summary" v-bind="{summary, calendar}">
 
+      <h1 class="title ds-light-forecolor">
+        {{ summary }}
+      </h1>
+
+    </slot>
     <slot name="next" v-bind="{next, nextLabel, calendar}">
 
       <v-tooltip bottom>
@@ -76,14 +60,6 @@
 
     </slot>
 
-    <slot name="summary" v-bind="{summary, calendar}">
-
-      <h1 class="title ds-light-forecolor">
-        {{ summary }}
-      </h1>
-
-    </slot>
-
     <v-spacer></v-spacer>
 
     <slot name="view" v-bind="{currentType, types}">
@@ -94,7 +70,7 @@
           <v-icon>arrow_drop_down</v-icon>
         </v-btn>
         <v-list>
-          <v-list-tile v-for="type in types"
+          <v-list-tile v-for="type in types.filter(({ label }) => label === 'Month' || label === 'Schedule')"
             :key="type.id"
             @click="currentType = type">
             <v-list-tile-content>
@@ -110,6 +86,8 @@
     <slot name="menuRight"></slot>
 
   </v-toolbar>
+
+  <!-- termina la barra de navegación de today/mes/vista -->
   <v-content class="ds-expand">
     <v-container fluid fill-height class="ds-calendar-container">
 
@@ -755,6 +733,18 @@ export default {
   .v-toolbar__content {
     border-bottom: 1px solid rgb(224, 224, 224);
   }
+/*prueba*/
+.v-toolbar--clipped .v-toolbar__content{
+  top: 0;
+  position: sticky;
+}
+.v-toolbar__content, .v-toolbar__extension{
+    top: 30px;
+    position: absolute;
+    width:100%;
+    left: 0;
+}
+/*fin prueba*/
 }
 
 .ds-skinny-button {
@@ -765,10 +755,14 @@ export default {
 .ds-expand {
   width: 100%;
   height: 100%;
+  /*padding-top:15px;*/
 }
 
 .ds-calendar-container {
-  padding: 0px !important;
+  padding-top:0px;
+  padding-left:0px;
+  padding-right:0px;
+ //padding: 0px !important;
   position: relative;
 }
 
@@ -776,7 +770,7 @@ export default {
 
   .v-icon {
     width: 24px;
-    height: 24px;
+    height: 24px; 
   }
 }
 

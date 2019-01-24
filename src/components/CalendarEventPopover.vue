@@ -14,14 +14,6 @@
        </v-icon>
      </v-toolbar-title>
 
-     <v-btn
-       v-if="allowEdit"
-       color="secondary"
-       small absolute bottom left fab icon
-       @click="edit">
-       <v-icon>edit</v-icon>
-     </v-btn>
-
      <slot name="eventPopoverToolbarLeft" v-bind="slotData"></slot>
 
      <v-spacer></v-spacer>
@@ -75,6 +67,7 @@
            <slot name="eventPopoverOccurs" v-bind="slotData">
              <v-list-tile-title>{{ startDate }}</v-list-tile-title>
              <v-list-tile-sub-title>{{ occurs }}</v-list-tile-sub-title>
+             <v-list-tile-sub-title v-if="hasDuration">{{ details.duration + ' ' + details.durationUnit }}</v-list-tile-sub-title>
            </slot>
          </v-list-tile-content>
        </v-list-tile>
@@ -270,6 +263,11 @@ export default {
     hasBusy()
     {
       return typeof this.details.busy === 'boolean';
+    },
+
+    hasDuration()
+    {
+      return this.details.duration != null;
     },
 
     occurs()

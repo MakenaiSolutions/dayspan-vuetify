@@ -297,7 +297,7 @@ export default {
 }
 
 .ds-agenda-details {
-  padding: 4px;
+  padding: 20px;
   cursor: pointer;
 }
 
