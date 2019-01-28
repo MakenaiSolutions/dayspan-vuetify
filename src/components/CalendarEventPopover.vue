@@ -59,13 +59,13 @@
 
      <v-list dense>
 
-       <v-list-tile>
-         <v-list-tile-avatar>
+       <v-list-tile id="prueba">
+         <v-list-tile-avatar >
            <v-icon>access_time</v-icon>
          </v-list-tile-avatar>
          <v-list-tile-content>
-           <slot name="eventPopoverOccurs" v-bind="slotData">
-             <v-list-tile-title>{{ startDate }}</v-list-tile-title>
+           <slot name="eventPopoverOccurs" v-bind="slotData" >
+             <v-list-tile-title >{{ startDate }}</v-list-tile-title>
              <v-list-tile-sub-title>{{ occurs }}</v-list-tile-sub-title>
              <v-list-tile-sub-title v-if="hasDuration">{{ details.duration + ' ' + details.durationUnit }}</v-list-tile-sub-title>
            </slot>
@@ -115,7 +115,7 @@
          <v-list-tile-avatar>
            <v-icon>event</v-icon>
          </v-list-tile-avatar>
-         <v-list-tile-content>
+         <v-list-tile-content >
            <slot name="eventPopoverCalendar" v-bind="slotData">
              <v-list-tile-title>
                <span v-html="details.calendar"></span>
@@ -306,9 +306,21 @@ export default {
   }
 }
 </script>
+<style>
+.v-list__tile {
+        padding: 0px !important;
+        height: 100% !important;
+}
+</style>
 
 <style scoped lang="scss">
-
+.v-list{
+  height:100%!important;
+}
+#prueba .v-list__tile {
+        padding: 0px !important;
+        height: 100% !important;
+}
 .ds-calendar-event-popover-card {
 
   .v-btn--floating.v-btn--left {
@@ -323,10 +335,11 @@ export default {
     padding: 16px 0;
 
     .v-list {
+      
 
       .v-list__tile {
         padding: 0px !important;
-        height: auto;
+        height: 100% !important;
 
         .v-list__tile__sub-title {
 
@@ -334,6 +347,10 @@ export default {
       }
     }
   }
+
+  .v-list--dense{
+  height: 100%;
+}
 
   .v-toolbar__extension {
     padding: 0 16px !important;
