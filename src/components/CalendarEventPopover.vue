@@ -301,6 +301,11 @@ export default {
   }
 }
 </script>
+<style>
+.v-list__tile {
+   height: 100% !important;
+}
+</style>
 
 <style scoped lang="scss">
 
