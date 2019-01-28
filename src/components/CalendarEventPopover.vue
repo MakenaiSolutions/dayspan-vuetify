@@ -308,8 +308,7 @@ export default {
 </script>
 <style>
 .v-list__tile {
-        padding: 0px !important;
-        height: 100% !important;
+   height: 100% !important;
 }
 </style>
 
