@@ -14,6 +14,14 @@
        </v-icon>
      </v-toolbar-title>
 
+     <v-btn
+       v-if="allowEdit"
+       color="secondary"
+       small absolute bottom left fab icon
+       @click="edit">
+       <v-icon size="32px">person_add</v-icon>
+     </v-btn>
+
      <slot name="eventPopoverToolbarLeft" v-bind="slotData"></slot>
 
      <v-spacer></v-spacer>
